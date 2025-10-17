@@ -1,0 +1,647 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sharp+ — Documentation</title>
+  <meta name="description" content="Sharp+ — enhanced Minecraft autoclicker. Documentation, install, usage, and contributing guide.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg-start:#f8f9fc;
+      --bg-end:#e8ecf4;
+      --card:#ffffff;
+      --card-secondary:#fafbfd;
+      --text:#0f172a;
+      --text-muted:#64748b;
+      --accent-start:#0078d4;
+      --accent-end:#0ea5e9;
+      --border:rgba(15,23,42,0.08);
+      --shadow:rgba(15,23,42,0.08);
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+    }
+    [data-theme="dark"]{
+      --bg-start:#0a0e1a;
+      --bg-end:#050813;
+      --card:#111827;
+      --card-secondary:#1a2234;
+      --text:#f1f5f9;
+      --text-muted:#94a3b8;
+      --accent-start:#3b82f6;
+      --accent-end:#06b6d4;
+      --border:rgba(148,163,184,0.1);
+      --shadow:rgba(0,0,0,0.3);
+    }
+    
+    *{box-sizing:border-box;}
+    html,body{height:100%; margin:0; font-family: 'Inter', system-ui, -apple-system, sans-serif; overflow-x:hidden;}
+    body{
+      background:linear-gradient(135deg, var(--bg-start) 0%, var(--bg-end) 100%);
+      color:var(--text);
+      padding:32px 24px;
+      line-height:1.6;
+    }
+    
+    .wrap{
+      max-width:1200px;
+      margin:0 auto;
+      display:grid;
+      grid-template-columns: 280px 1fr;
+      gap:32px;
+      align-items:start;
+    }
+    
+    .toc{
+      position:sticky;
+      top:32px;
+      align-self:start;
+    }
+    
+    .card{
+      background:var(--card);
+      border-radius:20px;
+      padding:28px;
+      box-shadow:0 4px 20px var(--shadow), 0 0 0 1px var(--border);
+      backdrop-filter:blur(10px);
+      transition:transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .card:hover{
+      transform:translateY(-2px);
+      box-shadow:0 8px 30px var(--shadow), 0 0 0 1px var(--border);
+    }
+    
+    .toc .card{padding:24px;}
+    
+    .logo-section{
+      display:flex;
+      gap:14px;
+      align-items:center;
+      margin-bottom:24px;
+    }
+    
+    .logo-img{
+      width:52px;
+      height:52px;
+      border-radius:14px;
+      background:linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:white;
+      font-weight:700;
+      font-size:24px;
+      box-shadow:0 4px 12px rgba(0,120,212,0.3);
+    }
+    
+    .logo-text{flex:1;}
+    .logo-title{
+      font-size:20px;
+      font-weight:700;
+      margin:0 0 4px;
+      background:linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    .meta{
+      font-size:12px;
+      color:var(--text-muted);
+      margin:0;
+    }
+    
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg, transparent, var(--border), transparent);
+      margin:20px 0;
+      border:none;
+    }
+    
+    nav.toc-list{
+      list-style:none;
+      padding:0;
+      margin:0 0 20px;
+    }
+    
+    nav.toc-list li{
+      margin:0;
+    }
+    
+    nav.toc-list a{
+      display:block;
+      color:var(--text-muted);
+      text-decoration:none;
+      padding:10px 16px;
+      border-radius:10px;
+      font-size:14px;
+      font-weight:500;
+      transition:all 0.2s ease;
+      position:relative;
+      overflow:hidden;
+    }
+    
+    nav.toc-list a:hover{
+      color:var(--text);
+      background:var(--card-secondary);
+      transform:translateX(4px);
+    }
+    
+    nav.toc-list a::before{
+      content:'';
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:3px;
+      background:linear-gradient(180deg, var(--accent-start), var(--accent-end));
+      opacity:0;
+      transition:opacity 0.2s ease;
+    }
+    
+    nav.toc-list a:hover::before{
+      opacity:1;
+    }
+    
+    .btn-group{
+      display:flex;
+      gap:10px;
+    }
+    
+    .btn{
+      flex:1;
+      background:linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color:white;
+      padding:12px 18px;
+      border-radius:12px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+      text-align:center;
+      border:none;
+      cursor:pointer;
+      transition:all 0.2s ease;
+      box-shadow:0 2px 8px rgba(0,120,212,0.25);
+      position:relative;
+      overflow:hidden;
+    }
+    
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 4px 16px rgba(0,120,212,0.35);
+    }
+    
+    .btn-secondary{
+      background:var(--card-secondary);
+      color:var(--text);
+      box-shadow:0 0 0 1px var(--border);
+    }
+    
+    .btn-secondary:hover{
+      background:var(--card);
+      box-shadow:0 0 0 1px var(--border), 0 4px 12px var(--shadow);
+    }
+    
+    h1{
+      margin:0 0 12px;
+      font-size:36px;
+      font-weight:700;
+      background:linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    h2{
+      font-size:24px;
+      font-weight:700;
+      margin:40px 0 16px;
+      color:var(--text);
+      position:relative;
+      padding-bottom:12px;
+    }
+    
+    h2::after{
+      content:'';
+      position:absolute;
+      bottom:0;
+      left:0;
+      width:60px;
+      height:3px;
+      background:linear-gradient(90deg, var(--accent-start), var(--accent-end));
+      border-radius:2px;
+    }
+    
+    h3{
+      font-size:18px;
+      font-weight:600;
+      margin:28px 0 12px;
+      color:var(--text);
+    }
+    
+    p.lead{
+      color:var(--text-muted);
+      margin:0 0 20px;
+      font-size:16px;
+      line-height:1.7;
+    }
+    
+    .topbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:start;
+      margin-bottom:32px;
+      gap:24px;
+    }
+    
+    .release-badge{
+      background:var(--card-secondary);
+      padding:16px 20px;
+      border-radius:12px;
+      text-align:right;
+      border:1px solid var(--border);
+      min-width:180px;
+    }
+    
+    .release-label{
+      font-size:11px;
+      text-transform:uppercase;
+      letter-spacing:0.5px;
+      color:var(--text-muted);
+      font-weight:600;
+      margin-bottom:4px;
+    }
+    
+    .release-version{
+      font-weight:700;
+      font-size:16px;
+      background:linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      background-clip:text;
+    }
+    
+    ul.features{
+      display:grid;
+      grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+      gap:14px;
+      padding:0;
+      list-style:none;
+      margin:20px 0;
+    }
+    
+    ul.features li{
+      background:var(--card-secondary);
+      padding:14px 18px;
+      border-radius:12px;
+      border:1px solid var(--border);
+      font-size:14px;
+      transition:all 0.2s ease;
+      position:relative;
+      padding-left:40px;
+    }
+    
+    ul.features li::before{
+      content:'✓';
+      position:absolute;
+      left:14px;
+      top:14px;
+      width:20px;
+      height:20px;
+      background:linear-gradient(135deg, var(--accent-start), var(--accent-end));
+      color:white;
+      border-radius:6px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:12px;
+      font-weight:700;
+    }
+    
+    ul.features li:hover{
+      transform:translateY(-2px);
+      border-color:var(--accent-start);
+      box-shadow:0 4px 12px var(--shadow);
+    }
+    
+    pre{
+      background:var(--card-secondary);
+      color:var(--text);
+      padding:20px;
+      border-radius:14px;
+      overflow:auto;
+      font-family:var(--mono);
+      font-size:13px;
+      border:1px solid var(--border);
+      line-height:1.6;
+    }
+    
+    [data-theme="dark"] pre{
+      background:#0a0e1a;
+      border-color:rgba(148,163,184,0.2);
+    }
+    
+    code{
+      font-family:var(--mono);
+      background:var(--card-secondary);
+      padding:3px 8px;
+      border-radius:6px;
+      font-size:13px;
+      border:1px solid var(--border);
+    }
+    
+    section{
+      margin-bottom:48px;
+    }
+    
+    ol, ul{
+      padding-left:24px;
+      color:var(--text-muted);
+    }
+    
+    ol li, ul li{
+      margin:8px 0;
+    }
+    
+    a{
+      color:var(--accent-start);
+      text-decoration:none;
+      font-weight:500;
+      transition:color 0.2s ease;
+    }
+    
+    a:hover{
+      color:var(--accent-end);
+    }
+    
+    footer{
+      margin-top:40px;
+      padding-top:32px;
+      border-top:1px solid var(--border);
+      color:var(--text-muted);
+      font-size:13px;
+    }
+    
+    .footer-grid{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:20px;
+    }
+    
+    strong{
+      color:var(--text);
+      font-weight:600;
+    }
+    
+    @media (max-width:900px){
+      .wrap{
+        grid-template-columns:1fr;
+      }
+      .toc{
+        position:static;
+        order:2;
+      }
+      .topbar{
+        flex-direction:column;
+      }
+      .release-badge{
+        width:100%;
+        text-align:left;
+      }
+      ul.features{
+        grid-template-columns:1fr;
+      }
+    }
+    
+    /* Smooth scroll behavior */
+    html{
+      scroll-behavior:smooth;
+    }
+    
+    /* Selection styling */
+    ::selection{
+      background:var(--accent-start);
+      color:white;
+    }
+  </style>
+</head>
+<body data-theme="light">
+  <div class="wrap">
+    <aside class="toc">
+      <div class="card">
+        <div class="logo-section">
+          <div class="logo-img">S+</div>
+          <div class="logo-text">
+            <div class="logo-title">Sharp+</div>
+            <div class="meta">Enhanced Minecraft Autoclicker</div>
+          </div>
+        </div>
+
+        <hr class="divider">
+        
+        <nav>
+          <ul class="toc-list">
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#quickstart">Quickstart</a></li>
+            <li><a href="#installation">Installation</a></li>
+            <li><a href="#configuration">Configuration</a></li>
+            <li><a href="#usage">Usage</a></li>
+            <li><a href="#releases">Releases</a></li>
+            <li><a href="#contributing">Contributing</a></li>
+            <li><a href="#disclaimer">Disclaimer & Safety</a></li>
+          </ul>
+        </nav>
+
+        <hr class="divider">
+        
+        <div class="btn-group">
+          <button id="themeToggle" class="btn btn-secondary">Theme</button>
+          <a class="btn" href="https://github.com/Zikae/Sharp-" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+    </aside>
+
+    <main>
+      <div class="card">
+        <div class="topbar">
+          <div>
+            <h1>Sharp+ Documentation</h1>
+            <p class="lead">An enhanced Minecraft autoclicker with advanced automation, modern DearPyGui interface, realistic click patterns, and comprehensive recording and analysis tools.</p>
+            <div class="meta">Built with Python • Open Source</div>
+          </div>
+          <div class="release-badge">
+            <div class="release-label">Latest Release</div>
+            <div class="release-version">Sharp 0.75</div>
+            <div class="meta" style="margin-top:4px">Oct 7, 2025</div>
+          </div>
+        </div>
+
+        <!-- Overview -->
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>Sharp+ is a multi-threaded Python application that provides advanced click automation for Minecraft Java Edition. It uses DearPyGui for the interface and integrates direct input handling to perform clicks without modifying Minecraft itself.</p>
+        </section>
+
+        <!-- Features -->
+        <section id="features">
+          <h2>Features</h2>
+          <ul class="features">
+            <li>Dual clickers — left & right separate automation</li>
+            <li>Multiple modes: Hold, Toggle, Always-on</li>
+            <li>Human-like CPS (1–20) with randomized patterns</li>
+            <li>Click recorder & pattern replay</li>
+            <li>Block break integration</li>
+            <li>Aim assist (partially experimental)</li>
+            <li>Customizable UI theme & color wheel</li>
+            <li>Sound effects & visual click feedback</li>
+            <li>Live CPS display with analytics</li>
+            <li>Always-on-top window option</li>
+          </ul>
+        </section>
+
+        <!-- Quickstart -->
+        <section id="quickstart">
+          <h2>Quickstart</h2>
+          <p class="lead">Get started with Sharp+ in minutes using either the source code or prebuilt executable.</p>
+
+          <h3>Prerequisites</h3>
+          <ul>
+            <li>Windows 10/11 (recommended)</li>
+            <li>Python 3.8+ (if running from source)</li>
+            <li>Minecraft Java Edition</li>
+          </ul>
+
+          <h3>Run from source</h3>
+          <pre><code># Create virtual environment (optional)
+python -m venv venv
+
+# Activate (Windows)
+venv\Scripts\activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run Sharp+
+python main.py</code></pre>
+
+          <h3>Using provided executable</h3>
+          <p>Download the latest release and run <code>Sharp+.exe</code> on Windows.</p>
+        </section>
+
+        <!-- Installation -->
+        <section id="installation">
+          <h2>Installation</h2>
+          <ol>
+            <li>Clone the repository: <code>git clone https://github.com/Zikae/Sharp-.git</code></li>
+            <li>Install dependencies: <code>pip install -r requirements.txt</code></li>
+            <li>Run with <code>python main.py</code> or use the packaged executable from Releases.</li>
+          </ol>
+        </section>
+
+        <!-- Configuration -->
+        <section id="configuration">
+          <h2>Configuration</h2>
+          <p>Sharp+ automatically persists your settings. Key configuration areas include:</p>
+          <ul>
+            <li><strong>Clicker Settings</strong> — Adjust CPS, mode, and block break toggle</li>
+            <li><strong>Aim Assist</strong> — Fine-tune speed controls and target selection (experimental)</li>
+            <li><strong>GUI Preferences</strong> — Customize theme, accent colors, always-on-top, and hotkeys</li>
+          </ul>
+          <p>No Minecraft modification is required. Input is sent through Windows APIs. Configure hotkeys and behaviors directly in the GUI.</p>
+        </section>
+
+        <!-- Usage -->
+        <section id="usage">
+          <h2>Usage</h2>
+          <p>Common workflow for using Sharp+:</p>
+          <ol>
+            <li>Launch Minecraft and open the Sharp+ GUI</li>
+            <li>Configure left/right clicker CPS and operational mode</li>
+            <li>Bind activation hotkeys or enable Always-on mode</li>
+            <li>Use the record feature to capture natural patterns and replay as needed</li>
+          </ol>
+
+          <h3>Tips & Best Practices</h3>
+          <ul>
+            <li>Enable "focus requirements" to only trigger clicks when Minecraft is active</li>
+            <li>Use the CPS analysis tool to review average CPS from recorded sessions</li>
+            <li>Aim-assist features are experimental — adjust speed and distance settings carefully before using in-game</li>
+          </ul>
+        </section>
+
+        <!-- Releases -->
+        <section id="releases">
+          <h2>Releases</h2>
+          <p>Download prebuilt Windows executables and assets from the repository Releases page. The latest version is <strong>Sharp 0.75</strong>, published October 7, 2025.</p>
+          <p><a class="btn" href="https://github.com/Zikae/Sharp-/releases" target="_blank" style="display:inline-block">View All Releases</a></p>
+        </section>
+
+        <!-- Contributing -->
+        <section id="contributing">
+          <h2>Contributing</h2>
+          <p>Contributions are welcome! Here's how you can help:</p>
+          <ul>
+            <li>Report bugs and issues via GitHub Issues</li>
+            <li>Submit pull requests with focused, well-documented changes</li>
+            <li>Improve documentation, add translations, or create automated tests</li>
+          </ul>
+          <p>Recommended workflow:</p>
+          <pre><code>git fork && git clone &lt;repo-url&gt;
+
+# Create feature branch
+git checkout -b feat/my-change
+
+# Make changes, commit, push, and create PR</code></pre>
+        </section>
+
+        <!-- Disclaimer -->
+        <section id="disclaimer">
+          <h2>Disclaimer & Safety</h2>
+          <p><strong>Important:</strong> I don't take responsibility for any consequences resulting from the use of this software. Use at your own risk. This project interacts with game input and may breach game or server rules. Exercise caution and follow all server rules and local laws.</p>
+        </section>
+
+        <footer>
+          <div class="footer-grid">
+            <div>
+              <strong>Sharp+</strong> — Documentation generated from repository README
+              <div class="meta" style="margin-top:4px">Primary language: Python • DearPyGui Interface</div>
+            </div>
+            <div style="text-align:right">
+              <a href="https://github.com/Zikae/Sharp-" target="_blank">Zikae/Sharp-</a>
+            </div>
+          </div>
+        </footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const btn = document.getElementById('themeToggle');
+    const body = document.body;
+    
+    // Remember theme preference
+    const savedTheme = body.getAttribute('data-theme');
+    if(savedTheme) body.setAttribute('data-theme', savedTheme);
+    
+    btn.addEventListener('click', ()=>{
+      const current = body.getAttribute('data-theme') || 'light';
+      const next = current === 'light' ? 'dark' : 'light';
+      body.setAttribute('data-theme', next);
+    });
+
+    // Smooth scroll for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor=>{
+      anchor.addEventListener('click', e=>{
+        e.preventDefault();
+        const id = anchor.getAttribute('href').slice(1);
+        const target = document.getElementById(id);
+        if(target) target.scrollIntoView({behavior:'smooth', block:'start'});
+      });
+    });
+  </script>
+</body>
+</html>
